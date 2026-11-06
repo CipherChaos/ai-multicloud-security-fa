@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>هوش مصنوعی در امنیت چندابری — ارائه</title>
+<meta name="description" content="ارائه‌ی هوش مصنوعی در امنیت چندابری: حمله، دفاع و مهندسی عامل‌ها — مشاهده آنلاین یا دانلود فایل PDF.">
+<meta name="theme-color" content="#047857">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --c2:#DCFCE7; --c3:#10B981; --c4:#047857; --c5:#04231A;
+  --soft:#3F5A50; --muted:#7C9489; --line:#DCEBE2;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh; min-height:100dvh;
+  font-family:'Vazirmatn',system-ui,sans-serif; color:var(--c5);
+  background:
+    radial-gradient(760px 520px at 82% -12%,#EFFAF3,transparent 62%),
+    radial-gradient(620px 420px at 8% 108%,#F5FDF8,transparent 60%),
+    #FFFFFF;
+  display:grid; place-items:center;
+  padding:clamp(22px,5vw,40px) clamp(16px,4vw,24px);
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{width:100%;max-width:600px;text-align:center}
+.bar{height:4px;border-radius:999px;background:linear-gradient(90deg,#10B981,#047857,#04231A);
+  margin:0 0 clamp(24px,6vw,36px)}
+.eyebrow{
+  display:inline-flex;align-items:center;gap:7px;
+  font-size:11.5px;font-weight:700;color:var(--c4);letter-spacing:.02em;
+  background:var(--c2);padding:6px 12px;border-radius:999px;margin-bottom:16px;
+}
+.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--c3)}
+h1{font-size:clamp(28px,7vw,44px);font-weight:900;letter-spacing:-.03em;line-height:1.22}
+h1 em{font-style:normal;color:var(--c4)}
+.lead{margin-top:14px;font-size:clamp(12.5px,3.4vw,14.5px);line-height:1.95;color:var(--soft)}
+.actions{margin-top:clamp(24px,5.5vw,32px);display:grid;gap:11px}
+.btn{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:15px 20px;border-radius:14px;
+  font-size:clamp(13.5px,3.6vw,14.5px);font-weight:800;text-decoration:none;
+  transition:transform .25s cubic-bezier(.2,.8,.2,1),box-shadow .25s,border-color .25s,background .25s;
+}
+.btn svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:2;
+  stroke-linecap:round;stroke-linejoin:round;flex:0 0 auto}
+.btn:active{transform:scale(.985)}
+.btn-main{background:linear-gradient(160deg,#10B981,#047857);color:#fff;
+  box-shadow:0 18px 34px -20px rgba(4,120,87,.9)}
+.btn-ghost{background:#fff;color:var(--c4);border:1px solid var(--line);
+  box-shadow:0 10px 26px -20px rgba(4,35,26,.5)}
+@media (hover:hover){
+  .btn-main:hover{box-shadow:0 26px 44px -20px rgba(4,120,87,1)}
+  .btn-ghost:hover{border-color:#A7E3BF;background:#F7FDF9}
+}
+.alt{margin-top:12px;font-size:11.5px;color:var(--muted)}
+.alt a{color:var(--soft);text-decoration:none;border-bottom:1px solid var(--line);padding-bottom:1px}
+.alt a:hover{color:var(--c4);border-color:#A7E3BF}
+.meta{margin-top:clamp(24px,5.5vw,34px);padding-top:18px;border-top:1px solid var(--line)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;justify-content:center}
+.chip{font-size:11px;font-weight:700;color:var(--c4);background:var(--c2);
+  padding:5px 11px;border-radius:999px}
+.chip.plain{background:#F3FAF5;color:var(--soft)}
+.foot{margin-top:14px;font-size:11px;color:var(--muted);line-height:1.9}
+
+.qr{display:inline-flex;flex-direction:column;align-items:center;gap:9px;
+  text-decoration:none;color:inherit;margin-bottom:clamp(16px,3.5vw,22px)}
+.qr-box{
+  width:clamp(84px,22vw,100px);height:clamp(84px,22vw,100px);
+  padding:8px;border-radius:13px;background:#fff;border:1px solid var(--line);
+  box-shadow:0 12px 26px -20px rgba(4,35,26,.6);transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s;
+}
+.qr{cursor:default}
+.qr-box{filter:grayscale(1) opacity(.85)}
+.qr-box svg{width:100%;height:100%;display:block}
+.qr-cap{font-size:10.5px;font-weight:600;color:var(--muted);letter-spacing:.02em;line-height:1.7}
+
+/* ---------- LOADER ---------- */
+.loader{
+  position:fixed;inset:0;z-index:90;background:#02110B;overflow:hidden;
+  opacity:0;pointer-events:none;transition:opacity .25s ease;
+  display:grid;place-items:center;
+}
+.loader.on{opacity:1;pointer-events:auto}
+.loader::before{
+  content:"";position:absolute;inset:-20%;
+  background-image:linear-gradient(rgba(16,185,129,.10) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(16,185,129,.10) 1px,transparent 1px);
+  background-size:44px 44px;
+  filter:blur(1px) brightness(.9);
+  animation:gridPan 6s linear infinite;
+}
+@keyframes gridPan{to{transform:translate(44px,44px)}}
+.loader-shot{
+  position:relative;z-index:2;width:min(74vw,420px);border-radius:14px;overflow:hidden;
+  border:1px solid rgba(57,255,136,.28);
+  box-shadow:0 0 0 1px rgba(57,255,136,.06),0 30px 80px -30px rgba(0,0,0,.9),0 0 90px -20px rgba(16,185,129,.5);
+  transform:scale(1);transition:transform 1.5s ease, opacity .4s ease;
+}
+.loader-shot img{display:block;width:100%;height:auto;filter:saturate(.9) contrast(1.05)}
+.loader.on .loader-shot{transform:scale(1.05)}
+.loader-cap{
+  position:absolute;left:0;right:0;bottom:max(26px, env(safe-area-inset-bottom));
+  text-align:center;font-size:11.5px;font-weight:600;letter-spacing:.05em;
+  color:rgba(143,217,180,.75);z-index:2;
+}
+.loader-white{position:absolute;inset:0;background:#fff;opacity:0;will-change:opacity;z-index:3}
+@media (prefers-reduced-motion: reduce){
+  .loader{display:none}
+  .loader::before{animation:none}
+}
+</style>
+</head>
+<body>
+<main class="wrap">
+  <span class="qr" aria-label="نشانگر QR — پس از انتشار نسخه‌ی آنلاین فعال می‌شود">
+    <span class="qr-box"><svg viewBox="0 0 33 33" shape-rendering="crispEdges" role="img" aria-label="QR"><path d="M0 0h1v1h-1zM1 0h1v1h-1zM2 0h1v1h-1zM3 0h1v1h-1zM4 0h1v1h-1zM5 0h1v1h-1zM6 0h1v1h-1zM8 0h1v1h-1zM9 0h1v1h-1zM10 0h1v1h-1zM11 0h1v1h-1zM12 0h1v1h-1zM14 0h1v1h-1zM15 0h1v1h-1zM19 0h1v1h-1zM21 0h1v1h-1zM23 0h1v1h-1zM24 0h1v1h-1zM26 0h1v1h-1zM27 0h1v1h-1zM28 0h1v1h-1zM29 0h1v1h-1zM30 0h1v1h-1zM31 0h1v1h-1zM32 0h1v1h-1zM0 1h1v1h-1zM6 1h1v1h-1zM8 1h1v1h-1zM11 1h1v1h-1zM16 1h1v1h-1zM18 1h1v1h-1zM19 1h1v1h-1zM21 1h1v1h-1zM23 1h1v1h-1zM26 1h1v1h-1zM32 1h1v1h-1zM0 2h1v1h-1zM2 2h1v1h-1zM3 2h1v1h-1zM4 2h1v1h-1zM6 2h1v1h-1zM9 2h1v1h-1zM10 2h1v1h-1zM12 2h1v1h-1zM14 2h1v1h-1zM15 2h1v1h-1zM16 2h1v1h-1zM18 2h1v1h-1zM19 2h1v1h-1zM20 2h1v1h-1zM22 2h1v1h-1zM23 2h1v1h-1zM26 2h1v1h-1zM28 2h1v1h-1zM29 2h1v1h-1zM30 2h1v1h-1zM32 2h1v1h-1zM0 3h1v1h-1zM2 3h1v1h-1zM3 3h1v1h-1zM4 3h1v1h-1zM6 3h1v1h-1zM8 3h1v1h-1zM9 3h1v1h-1zM16 3h1v1h-1zM21 3h1v1h-1zM22 3h1v1h-1zM23 3h1v1h-1zM26 3h1v1h-1zM28 3h1v1h-1zM29 3h1v1h-1zM30 3h1v1h-1zM32 3h1v1h-1zM0 4h1v1h-1zM2 4h1v1h-1zM3 4h1v1h-1zM4 4h1v1h-1zM6 4h1v1h-1zM8 4h1v1h-1zM9 4h1v1h-1zM14 4h1v1h-1zM15 4h1v1h-1zM16 4h1v1h-1zM17 4h1v1h-1zM19 4h1v1h-1zM20 4h1v1h-1zM23 4h1v1h-1zM26 4h1v1h-1zM28 4h1v1h-1zM29 4h1v1h-1zM30 4h1v1h-1zM32 4h1v1h-1zM0 5h1v1h-1zM6 5h1v1h-1zM11 5h1v1h-1zM13 5h1v1h-1zM14 5h1v1h-1zM15 5h1v1h-1zM16 5h1v1h-1zM17 5h1v1h-1zM20 5h1v1h-1zM24 5h1v1h-1zM26 5h1v1h-1zM32 5h1v1h-1zM0 6h1v1h-1zM1 6h1v1h-1zM2 6h1v1h-1zM3 6h1v1h-1zM4 6h1v1h-1zM5 6h1v1h-1zM6 6h1v1h-1zM8 6h1v1h-1zM10 6h1v1h-1zM13 6h1v1h-1zM14 6h1v1h-1zM17 6h1v1h-1zM18 6h1v1h-1zM19 6h1v1h-1zM22 6h1v1h-1zM26 6h1v1h-1zM27 6h1v1h-1zM28 6h1v1h-1zM29 6h1v1h-1zM30 6h1v1h-1zM31 6h1v1h-1zM32 6h1v1h-1zM9 7h1v1h-1zM10 7h1v1h-1zM11 7h1v1h-1zM13 7h1v1h-1zM14 7h1v1h-1zM17 7h1v1h-1zM22 7h1v1h-1zM23 7h1v1h-1zM24 7h1v1h-1zM2 8h1v1h-1zM4 8h1v1h-1zM5 8h1v1h-1zM11 8h1v1h-1zM16 8h1v1h-1zM23 8h1v1h-1zM27 8h1v1h-1zM28 8h1v1h-1zM29 8h1v1h-1zM30 8h1v1h-1zM31 8h1v1h-1zM32 8h1v1h-1zM3 9h1v1h-1zM6 9h1v1h-1zM9 9h1v1h-1zM11 9h1v1h-1zM15 9h1v1h-1zM16 9h1v1h-1zM18 9h1v1h-1zM19 9h1v1h-1zM20 9h1v1h-1zM22 9h1v1h-1zM24 9h1v1h-1zM25 9h1v1h-1zM26 9h1v1h-1zM29 9h1v1h-1zM0 10h1v1h-1zM1 10h1v1h-1zM2 10h1v1h-1zM4 10h1v1h-1zM5 10h1v1h-1zM6 10h1v1h-1zM9 10h1v1h-1zM10 10h1v1h-1zM14 10h1v1h-1zM15 10h1v1h-1zM17 10h1v1h-1zM18 10h1v1h-1zM22 10h1v1h-1zM24 10h1v1h-1zM26 10h1v1h-1zM27 10h1v1h-1zM30 10h1v1h-1zM31 10h1v1h-1zM0 11h1v1h-1zM1 11h1v1h-1zM2 11h1v1h-1zM3 11h1v1h-1zM4 11h1v1h-1zM5 11h1v1h-1zM6 11h1v1h-1zM8 11h1v1h-1zM10 11h1v1h-1zM11 11h1v1h-1zM12 11h1v1h-1zM13 11h1v1h-1zM14 11h1v1h-1zM17 11h1v1h-1zM20 11h1v1h-1zM22 11h1v1h-1zM25 11h1v1h-1zM29 11h1v1h-1zM0 12h1v1h-1zM1 12h1v1h-1zM2 12h1v1h-1zM3 12h1v1h-1zM4 12h1v1h-1zM6 12h1v1h-1zM7 12h1v1h-1zM8 12h1v1h-1zM12 12h1v1h-1zM13 12h1v1h-1zM14 12h1v1h-1zM15 12h1v1h-1zM16 12h1v1h-1zM17 12h1v1h-1zM18 12h1v1h-1zM22 12h1v1h-1zM24 12h1v1h-1zM25 12h1v1h-1zM26 12h1v1h-1zM27 12h1v1h-1zM30 12h1v1h-1zM32 12h1v1h-1zM0 13h1v1h-1zM1 13h1v1h-1zM2 13h1v1h-1zM3 13h1v1h-1zM4 13h1v1h-1zM5 13h1v1h-1zM6 13h1v1h-1zM13 13h1v1h-1zM14 13h1v1h-1zM16 13h1v1h-1zM19 13h1v1h-1zM25 13h1v1h-1zM2 14h1v1h-1zM3 14h1v1h-1zM4 14h1v1h-1zM5 14h1v1h-1zM6 14h1v1h-1zM13 14h1v1h-1zM19 14h1v1h-1zM21 14h1v1h-1zM22 14h1v1h-1zM23 14h1v1h-1zM25 14h1v1h-1zM29 14h1v1h-1zM2 15h1v1h-1zM3 15h1v1h-1zM4 15h1v1h-1zM6 15h1v1h-1zM8 15h1v1h-1zM9 15h1v1h-1zM10 15h1v1h-1zM14 15h1v1h-1zM18 15h1v1h-1zM20 15h1v1h-1zM23 15h1v1h-1zM24 15h1v1h-1zM27 15h1v1h-1zM28 15h1v1h-1zM29 15h1v1h-1zM31 15h1v1h-1zM0 16h1v1h-1zM3 16h1v1h-1zM8 16h1v1h-1zM11 16h1v1h-1zM12 16h1v1h-1zM14 16h1v1h-1zM15 16h1v1h-1zM16 16h1v1h-1zM17 16h1v1h-1zM18 16h1v1h-1zM20 16h1v1h-1zM23 16h1v1h-1zM27 16h1v1h-1zM28 16h1v1h-1zM29 16h1v1h-1zM32 16h1v1h-1zM0 17h1v1h-1zM1 17h1v1h-1zM2 17h1v1h-1zM3 17h1v1h-1zM5 17h1v1h-1zM7 17h1v1h-1zM8 17h1v1h-1zM10 17h1v1h-1zM11 17h1v1h-1zM20 17h1v1h-1zM22 17h1v1h-1zM25 17h1v1h-1zM26 17h1v1h-1zM28 17h1v1h-1zM30 17h1v1h-1zM31 17h1v1h-1zM1 18h1v1h-1zM3 18h1v1h-1zM5 18h1v1h-1zM6 18h1v1h-1zM7 18h1v1h-1zM8 18h1v1h-1zM11 18h1v1h-1zM14 18h1v1h-1zM15 18h1v1h-1zM16 18h1v1h-1zM17 18h1v1h-1zM18 18h1v1h-1zM19 18h1v1h-1zM20 18h1v1h-1zM21 18h1v1h-1zM25 18h1v1h-1zM26 18h1v1h-1zM28 18h1v1h-1zM29 18h1v1h-1zM30 18h1v1h-1zM31 18h1v1h-1zM0 19h1v1h-1zM4 19h1v1h-1zM5 19h1v1h-1zM6 19h1v1h-1zM7 19h1v1h-1zM8 19h1v1h-1zM12 19h1v1h-1zM13 19h1v1h-1zM18 19h1v1h-1zM19 19h1v1h-1zM24 19h1v1h-1zM25 19h1v1h-1zM26 19h1v1h-1zM0 20h1v1h-1zM2 20h1v1h-1zM4 20h1v1h-1zM7 20h1v1h-1zM8 20h1v1h-1zM9 20h1v1h-1zM12 20h1v1h-1zM13 20h1v1h-1zM16 20h1v1h-1zM17 20h1v1h-1zM19 20h1v1h-1zM20 20h1v1h-1zM26 20h1v1h-1zM27 20h1v1h-1zM30 20h1v1h-1zM31 20h1v1h-1zM1 21h1v1h-1zM2 21h1v1h-1zM5 21h1v1h-1zM6 21h1v1h-1zM7 21h1v1h-1zM8 21h1v1h-1zM10 21h1v1h-1zM14 21h1v1h-1zM16 21h1v1h-1zM18 21h1v1h-1zM19 21h1v1h-1zM21 21h1v1h-1zM24 21h1v1h-1zM25 21h1v1h-1zM26 21h1v1h-1zM29 21h1v1h-1zM30 21h1v1h-1zM31 21h1v1h-1zM0 22h1v1h-1zM1 22h1v1h-1zM2 22h1v1h-1zM3 22h1v1h-1zM9 22h1v1h-1zM10 22h1v1h-1zM13 22h1v1h-1zM15 22h1v1h-1zM16 22h1v1h-1zM17 22h1v1h-1zM18 22h1v1h-1zM19 22h1v1h-1zM20 22h1v1h-1zM21 22h1v1h-1zM23 22h1v1h-1zM25 22h1v1h-1zM26 22h1v1h-1zM29 22h1v1h-1zM30 22h1v1h-1zM32 22h1v1h-1zM1 23h1v1h-1zM2 23h1v1h-1zM4 23h1v1h-1zM5 23h1v1h-1zM8 23h1v1h-1zM9 23h1v1h-1zM10 23h1v1h-1zM12 23h1v1h-1zM15 23h1v1h-1zM16 23h1v1h-1zM19 23h1v1h-1zM21 23h1v1h-1zM22 23h1v1h-1zM23 23h1v1h-1zM28 23h1v1h-1zM29 23h1v1h-1zM0 24h1v1h-1zM1 24h1v1h-1zM2 24h1v1h-1zM5 24h1v1h-1zM11 24h1v1h-1zM12 24h1v1h-1zM13 24h1v1h-1zM15 24h1v1h-1zM16 24h1v1h-1zM18 24h1v1h-1zM19 24h1v1h-1zM20 24h1v1h-1zM22 24h1v1h-1zM26 24h1v1h-1zM27 24h1v1h-1zM28 24h1v1h-1zM31 24h1v1h-1zM32 24h1v1h-1zM8 25h1v1h-1zM10 25h1v1h-1zM12 25h1v1h-1zM13 25h1v1h-1zM14 25h1v1h-1zM15 25h1v1h-1zM18 25h1v1h-1zM19 25h1v1h-1zM22 25h1v1h-1zM26 25h1v1h-1zM31 25h1v1h-1zM32 25h1v1h-1zM0 26h1v1h-1zM1 26h1v1h-1zM2 26h1v1h-1zM3 26h1v1h-1zM4 26h1v1h-1zM5 26h1v1h-1zM6 26h1v1h-1zM8 26h1v1h-1zM11 26h1v1h-1zM14 26h1v1h-1zM15 26h1v1h-1zM16 26h1v1h-1zM17 26h1v1h-1zM18 26h1v1h-1zM21 26h1v1h-1zM22 26h1v1h-1zM23 26h1v1h-1zM25 26h1v1h-1zM26 26h1v1h-1zM27 26h1v1h-1zM30 26h1v1h-1zM31 26h1v1h-1zM32 26h1v1h-1zM0 27h1v1h-1zM6 27h1v1h-1zM9 27h1v1h-1zM11 27h1v1h-1zM12 27h1v1h-1zM15 27h1v1h-1zM16 27h1v1h-1zM18 27h1v1h-1zM19 27h1v1h-1zM21 27h1v1h-1zM23 27h1v1h-1zM26 27h1v1h-1zM27 27h1v1h-1zM31 27h1v1h-1zM0 28h1v1h-1zM2 28h1v1h-1zM3 28h1v1h-1zM4 28h1v1h-1zM6 28h1v1h-1zM10 28h1v1h-1zM11 28h1v1h-1zM15 28h1v1h-1zM17 28h1v1h-1zM21 28h1v1h-1zM23 28h1v1h-1zM24 28h1v1h-1zM27 28h1v1h-1zM28 28h1v1h-1zM29 28h1v1h-1zM31 28h1v1h-1zM32 28h1v1h-1zM0 29h1v1h-1zM2 29h1v1h-1zM3 29h1v1h-1zM4 29h1v1h-1zM6 29h1v1h-1zM8 29h1v1h-1zM12 29h1v1h-1zM13 29h1v1h-1zM15 29h1v1h-1zM17 29h1v1h-1zM18 29h1v1h-1zM19 29h1v1h-1zM22 29h1v1h-1zM25 29h1v1h-1zM26 29h1v1h-1zM28 29h1v1h-1zM29 29h1v1h-1zM30 29h1v1h-1zM31 29h1v1h-1zM32 29h1v1h-1zM0 30h1v1h-1zM2 30h1v1h-1zM3 30h1v1h-1zM4 30h1v1h-1zM6 30h1v1h-1zM9 30h1v1h-1zM11 30h1v1h-1zM16 30h1v1h-1zM21 30h1v1h-1zM24 30h1v1h-1zM25 30h1v1h-1zM27 30h1v1h-1zM29 30h1v1h-1zM31 30h1v1h-1zM0 31h1v1h-1zM6 31h1v1h-1zM11 31h1v1h-1zM13 31h1v1h-1zM16 31h1v1h-1zM21 31h1v1h-1zM24 31h1v1h-1zM26 31h1v1h-1zM29 31h1v1h-1zM31 31h1v1h-1zM32 31h1v1h-1zM0 32h1v1h-1zM1 32h1v1h-1zM2 32h1v1h-1zM3 32h1v1h-1zM4 32h1v1h-1zM5 32h1v1h-1zM6 32h1v1h-1zM8 32h1v1h-1zM9 32h1v1h-1zM10 32h1v1h-1zM11 32h1v1h-1zM13 32h1v1h-1zM16 32h1v1h-1zM17 32h1v1h-1zM19 32h1v1h-1zM20 32h1v1h-1zM21 32h1v1h-1zM22 32h1v1h-1zM23 32h1v1h-1zM24 32h1v1h-1zM27 32h1v1h-1zM30 32h1v1h-1zM32 32h1v1h-1z" fill="#04231A"/></svg></span>
+    <span class="qr-cap">QR — نمونه · پس از انتشار نسخه‌ی آنلاین فعال می‌شود</span>
+  </span>
+
+  <div class="bar" aria-hidden="true"></div>
+
+  <span class="eyebrow">امنیت چندابری · هوش مصنوعی</span>
+  <h1>هوش مصنوعی در امنیت <em>چندابری</em></h1>
+  <p class="lead">
+    از تاکسونومی حمله و سوءاستفاده‌ی عامل‌ها تا معماری‌های دفاع عامل‌محور؛
+    دو مرور نظام‌مند ۲۰۲۵ و ۲۰۲۶، سه سناریوی شبیه‌سازی‌شده، و آنچه هنوز حل نشده است.
+  </p>
+
+  <div class="actions">
+    <a class="btn btn-main" id="viewBtn" href="presentation.html">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.4v13.2L19 12z"/></svg>
+      مشاهده ارائه
+    </a>
+    <a class="btn btn-ghost" href="presentation.html?print=1" target="_blank" rel="noopener" title="در پنجره‌ی چاپ، مقصد را «ذخیره به‌عنوان PDF» بگذارید">
+      <svg viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M12 4v11"/><path d="M7.5 11.5 12 16l4.5-4.5"/><path d="M5 20h14"/>
+      </svg>
+      دانلود ارائه (PDF)
+    </a>
+  </div>
+  <p class="alt">دکمه‌ی دانلود، پنجره‌ی چاپ را باز می‌کند؛ آنجا «Save as PDF» را بزنید. یا فایل اسلایدها را جدا بگیرید — <a href="presentation.html" download>HTML مستقل</a></p>
+
+  <div class="meta">
+    <div class="chips">
+      <span class="chip">آرین بلندی</span>
+      <span class="chip">علی شاهوار</span>
+      <span class="chip">محمدرضا پورصالحی</span>
+      <span class="chip plain">استاد: حسام‌الدین ادریسی</span>
+      <span class="chip plain">۲ – ۴</span>
+    </div>
+    <p class="foot">ارائه ۲۰ اسلایدی با نسبت ۱۶:۹ · منابع: IEEE Access 2025 و Appl. Sci. 2026</p>
+  </div>
+</main>
+
+<div class="loader" id="loader" aria-hidden="true">
+  <div class="loader-shot" id="shot">
+    <img src="assets/anonymous-gif.gif" alt="" width="400" height="233" decoding="async">
+  </div>
+  <div class="loader-cap">در حال آماده‌سازی ارائه…</div>
+  <div class="loader-white" id="warpWhite"></div>
+</div>
+
+<script>
+(function(){
+  "use strict";
+  /* timing (ms) — one timeline drives the whole sequence */
+  var T = { show: 900, hold: 1500, white: 420 };
+
+  var btn = document.getElementById('viewBtn');
+  var loader = document.getElementById('loader');
+  var white = document.getElementById('warpWhite');
+  var shot = document.getElementById('shot');
+  if (!btn || !loader || !white) return;
+
+  var deckURL = btn.getAttribute('href');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var running = false, navigated = false, watchdog = 0;
+
+  function warm(){
+    if (location.protocol === 'file:') return;   /* nothing to prefetch over file:// */
+    try { fetch(deckURL, { cache: 'force-cache' }).catch(function(){}); } catch (e) {}
+    try {
+      var l = document.createElement('link');
+      l.rel = 'prefetch'; l.href = deckURL;
+      document.head.appendChild(l);
+    } catch (e) {}
+  }
+
+  function go(){
+    clearTimeout(watchdog);
+    navigated = true;
+    window.location.href = deckURL;
+  }
+
+  /* if the gif never loads, don't keep the visitor hostage */
+  var img = loader.querySelector('img');
+  if (img) img.addEventListener('error', function(){ shot.style.display = 'none'; });
+
+  btn.addEventListener('click', function(e){
+    if (e.metaKey || e.ctrlKey || e.shiftKey || e.altKey || e.button > 0) return;
+    if (reduced) return;
+    e.preventDefault();
+    if (running) return;
+    running = true;
+
+    warm();
+    loader.classList.add('on');
+
+    setTimeout(function(){
+      white.style.transition = 'opacity ' + T.white + 'ms ease';
+      white.style.opacity = '1';
+    }, T.show + T.hold - T.white);
+
+    setTimeout(go, T.show + T.hold);
+
+    watchdog = setTimeout(function(){ if (!navigated) go(); }, T.show + T.hold + 2500);
+
+    setTimeout(function(){
+      if (!navigated) return;
+      white.style.opacity = '0';
+      loader.classList.remove('on');
+      running = false;
+    }, T.show + T.hold + 6000);
+  });
+})();
+</script>
+</body>
+</html>
