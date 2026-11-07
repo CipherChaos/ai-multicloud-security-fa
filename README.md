@@ -27,16 +27,6 @@ python3 -m http.server 8000
 
 برای ارائه، `presentation.html` را باز کنید و با کلیدهای جهت‌دار (یا فاصله) اسلایدها را جابه‌جا کنید.
 
-## دانلود PDF
-
-فایل PDF داخل مخزن نگه داشته نمی‌شود تا حجم مخزن کم بماند. دکمه‌ی «دانلود ارائه (PDF)» در صفحه‌ی معرفی، ارائه را در حالت چاپ باز می‌کند
-(`presentation.html?print=1`) و پنجره‌ی چاپ مرورگر را می‌آورد؛ آنجا مقصد را **Save as PDF** بگذارید.
-نتیجه همان ۲۰ صفحه‌ی ۹۶۰×۵۴۰ پوینت (۱۲۸۰×۷۲۰ پیکسل) است.
-
-## انتشار روی GitHub Pages
-
-`Settings → Pages → Source: Deploy from a branch → Branch: main / (root)` — بعد از چند ثانیه آدرس
-`https://<user>.github.io/ai-multicloud-security-fa/` بالا می‌آید.
 
 ## ارجاع
 
